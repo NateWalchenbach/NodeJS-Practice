@@ -6,6 +6,7 @@ const url = require("url");
 
 // SERVER
 // THIS IS A TEST MESSAGE
+// THIS IS ANOTHER MESSAGE
 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObject = JSON.parse(data);
