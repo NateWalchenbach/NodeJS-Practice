@@ -1,9 +1,11 @@
+// MODULES
 const fs = require("fs");
 const http = require("http");
 const path = require("path");
 const url = require("url");
 
 // SERVER
+// THIS IS A TEST MESSAGE
 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObject = JSON.parse(data);
