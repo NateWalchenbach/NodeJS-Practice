@@ -3,6 +3,10 @@ const fs = require("fs");
 const http = require("http");
 const path = require("path");
 const url = require("url");
+// THIRD PARTY MODULES
+const slugify = require("slugify");
+
+// OWN WRITTEN MODULES
 const replaceTemplate = require("./modules/replaceTemplate");
 
 // SERVER
@@ -22,6 +26,11 @@ const tempProduct = fs.readFileSync(
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObject = JSON.parse(data);
 // console.log(dataObject);
+
+const slugs = dataObject.map((el) => slugify(el.productName, { lower: true }));
+// console.log(slugs);
+
+// console.log(slugify("Fresh Avocados", { lower: true }));
 
 const server = http.createServer((req, res) => {
   // console.log(req.url);
@@ -69,5 +78,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(8000, "127.0.0.1", () => {
-  console.log("Listening to requests on port 8000");
+  console.log("Listening to requests on port 8000!");
 });
