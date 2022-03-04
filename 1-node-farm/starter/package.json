@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "nodemon index.js"
+    "start": "nodemon index.js"
   },
   "author": "Nate Walchenbach",
   "license": "MIT",
-  "dependencies": {
-    "slugify": "^1.6.5"
-  },
   "devDependencies": {
     "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "slugify": "^1.6.5"
   }
 }
