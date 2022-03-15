@@ -9,6 +9,17 @@ const port = 3000;
 
 // Middleware
 app.use(express.json());
+app.use((req, res, next) => {
+  console.log('Hello from the middleware ✈');
+  next();
+});
+
+// More middlware adding date to req
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  console.log('Date added');
+  next();
+});
 
 // Reading data
 const tours = JSON.parse(
@@ -17,6 +28,7 @@ const tours = JSON.parse(
 
 // Route Functions
 const getAllTours = (req, res) => {
+  console.log(req.requestTime);
   res.status(200).json({
     status: 'success',
     results: tours.length,
@@ -97,6 +109,7 @@ const updateTour = () => {
 app.route('/api/v1/tours').get(getAllTours).post(createTour);
 
 app.route('/api/v1/tours/:id').get(getTour).patch(updateTour);
+
 // Startup server
 app.listen(port, () => {
   console.log(`App running on port: ${port}`);
