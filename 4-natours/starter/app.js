@@ -15,8 +15,8 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
-// Routs
-app.get('/api/v1/tours', (req, res) => {
+// Route Functions
+const getAllTours = (req, res) => {
   res.status(200).json({
     status: 'success',
     results: tours.length,
@@ -24,10 +24,9 @@ app.get('/api/v1/tours', (req, res) => {
       tours,
     },
   });
-});
+};
 
-// POST Request
-app.post('/api/v1/tours', (req, res) => {
+const createTour = (req, res) => {
   const newId = tours[tours.length - 1].id + 1;
   const newTour = Object.assign({ id: newId }, req.body);
 
@@ -45,10 +44,9 @@ app.post('/api/v1/tours', (req, res) => {
       });
     }
   );
-});
+};
 
-// Route to accept variable
-app.get('/api/v1/tours/:id', (req, res) => {
+const getTour = (req, res) => {
   console.log(req.params);
 
   const id = req.params.id * 1;
@@ -69,9 +67,11 @@ app.get('/api/v1/tours/:id', (req, res) => {
       tour,
     },
   });
-});
+};
 
-app.patch('/api/v1/tours/:id', () => {
+const updateTour = () => {
+  const id = req.params.id * 1;
+
   if (id > tours.length) {
     return res.status(404).json({
       staus: 'fail',
@@ -84,8 +84,19 @@ app.patch('/api/v1/tours/:id', () => {
       tour: `<Updated tour here...>`,
     },
   });
-});
+};
+// // Routes
+// app.get('/api/v1/tours', getAllTours);
+// // POST Request
+// app.post('/api/v1/tours', createTour);
+// // Route to accept one tour
+// // ***WORKING WITH VARIABLES***
+// app.get('/api/v1/tours/:id', getTour);
+// app.patch('/api/v1/tours/:id', updateTour);
 
+app.route('/api/v1/tours').get(getAllTours).post(createTour);
+
+app.route('/api/v1/tours/:id').get(getTour).patch(updateTour);
 // Startup server
 app.listen(port, () => {
   console.log(`App running on port: ${port}`);
