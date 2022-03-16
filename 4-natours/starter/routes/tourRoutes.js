@@ -1,12 +1,10 @@
 const express = require('express');
 const fs = require('fs');
-const router = express.Router();
 const tourController = require('../controllers/tourController');
 
-// Reading data
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
-);
+const router = express.Router();
+
+router.param('id', tourController.checkId);
 
 // Routes
 router

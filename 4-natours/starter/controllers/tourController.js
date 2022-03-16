@@ -1,4 +1,19 @@
+const fs = require('fs');
+
 // Route Functions
+const tours = JSON.parse(
+  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
+);
+
+exports.checkId = (req, res, next, val) => {
+  if (req.params.id * 1 > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+  next();
+};
 
 exports.getAllTours = (req, res) => {
   console.log(req.requestTime);
@@ -34,17 +49,6 @@ exports.createTour = (req, res) => {
 exports.getTour = (req, res) => {
   console.log(req.params);
 
-  const id = req.params.id * 1;
-  const tour = tours.find((el) => el.id === id);
-
-  if (id > tours.length) {
-    // if (!tour) {
-    return res.status(404).json({
-      staus: 'fail',
-      message: 'invalid id',
-    });
-  }
-
   res.status(200).json({
     status: 'success',
     // results: tours.length,
@@ -55,14 +59,6 @@ exports.getTour = (req, res) => {
 };
 
 exports.updateTour = () => {
-  const id = req.params.id * 1;
-
-  if (id > tours.length) {
-    return res.status(404).json({
-      staus: 'fail',
-      message: 'invalid id',
-    });
-  }
   res.status(200).json({
     status: 'success',
     data: {
