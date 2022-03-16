@@ -1,9 +1,7 @@
-// Main Modules
 const express = require('express');
-const router = express.Router();
-const userController = require('../controllers/userController');
+const userController = require('./../controllers/userController');
 
-// Routes
+const router = express.Router();
 
 router
   .route('/')
